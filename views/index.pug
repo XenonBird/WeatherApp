@@ -8,20 +8,31 @@ html(lang="en")
         link(rel="stylesheet", href="/public/style/main.css")
     body 
         .container.col-md-6.p-3(class="bg-light border")
-            h1.display-3 Weather report 
+            h1.display-2 Weather Today 
             hr
-            p.text-center Currently sky has 
-                b #{data.weather[0].main}
+            h1.text-capitalize.display-5 #{data.current.weather[0].description}
+                img( src=`http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`, alt="", srcset="")
             table.table.table-striped
                 tr 
                     th Temparature
-                    th #{Math.round(data.main.temp - 270)} degrees
+                    th #{data.current.temp} ℃
                 tr 
                     th Humidity
-                    th #{data.main.humidity} %
+                    th #{data.current.humidity} %
                 tr 
                     th Wind speed 
-                    th #{data.wind.speed} Km/h
+                    th #{data.current.wind_speed} Km/h
+            .container.d-flex.justify-content-start.flex-nowrap(style="overflow-x: scroll;")
+                for day in data.daily
+                    - let dayName = new Date(day.dt * 1000)
+                    - dayName = dayName.toLocaleDateString(locale, { weekday: 'long' })
+                    .card.bg-light.border.m-2.p-2(style="min-width: 10rem;")
+                        h4.card-title #{dayName}
+                        //- h5.card-title #{day.weather[0].description}
+                        img( src=`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`, alt="", srcset="")
+                        h5.card-description #{Math.round(day.temp.max)}℃ - #{Math.round(day.temp.min)}℃
+
+
 
         script(src="/bs/dist/js/bootstrap.min.js") 
                 
