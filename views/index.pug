@@ -1,0 +1,27 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title #{title}
+        link(rel="stylesheet", href="/bs/dist/css/bootstrap.min.css")
+        link(rel="stylesheet", href="/public/style/main.css")
+    body 
+        .container.col-md-6.p-3(class="bg-light border")
+            h1.display-3 Weather report 
+            hr
+            p.text-center Currently sky has 
+                b #{data.weather[0].main}
+            table.table.table-striped
+                tr 
+                    th Temparature
+                    th #{Math.round(data.main.temp - 270)} degrees
+                tr 
+                    th Humidity
+                    th #{data.main.humidity} %
+                tr 
+                    th Wind speed 
+                    th #{data.wind.speed} Km/h
+
+        script(src="/bs/dist/js/bootstrap.min.js") 
+                
